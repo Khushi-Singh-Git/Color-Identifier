@@ -1,15 +1,19 @@
+# importing the libraries
 import cv2
 import pandas as pd
 
+# adding image path
 img_path = r'imagepath'
 img = cv2.imread(img_path)
-# declaring global variables (are used later on)
+
+# declaring global variables 
 clicked = False
 r = g = b = x_pos = y_pos = 0
 
 # Reading csv file with pandas and giving names to each column
 index = ["color", "color_name", "hex", "R", "G", "B"]
 csv = pd.read_csv('csv_path', names=index, header=None)
+
 # function to calculate minimum distance from all colors and get the most matching color
 def get_color_name(R, G, B):
     minimum = 10000
@@ -20,7 +24,7 @@ def get_color_name(R, G, B):
             cname = csv.loc[i, "color_name"]
     return cname
     
-    # function to get x,y coordinates of mouse double click
+# function to get x,y coordinates of mouse double click
 def draw_function(event, x, y, flags, param):
     if event == cv2.EVENT_LBUTTONDBLCLK:
         global b, g, r, x_pos, y_pos, clicked
@@ -32,7 +36,7 @@ def draw_function(event, x, y, flags, param):
         g = int(g)
         r = int(r)
         
-        cv2.namedWindow('image')
+cv2.namedWindow('image')
 cv2.setMouseCallback('image', draw_function)
 
 while True:
